@@ -1,0 +1,35 @@
+﻿@inject NavigationManager navigator
+@inject ILocalStorageService ls;
+
+<MudNavMenu>
+    <MudNavLink Href="/" Icon="fas fa-home">Home</MudNavLink>
+    
+    <MudNavGroup Title="Categoria" Icon="fas fa-layer-group">
+        <MudNavLink Icon="fas fa-list" Href="/categoria">Listar</MudNavLink>
+        <MudNavLink Icon="fas fa-plus" Href="/categoria/cadastrar">Cadastrar</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Produto" Icon="fas fa-box-alt">
+        <MudNavLink Icon="fas fa-list" Href="/produto">Listar</MudNavLink>
+        <MudNavLink Icon="fas fa-plus" Href="/produto/cadastrar">Cadastrar</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Perfil" Icon="fas fa-id-badge">
+        <MudNavLink Icon="fas fa-list" Href="/perfil">Listar</MudNavLink>
+        <MudNavLink Icon="fas fa-plus" Href="/perfil/cadastrar">Cadastrar</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Usuario" Icon="fas fa-user">
+        <MudNavLink Icon="fas fa-list" Href="/usuario">Listar</MudNavLink>
+        <MudNavLink Icon="fas fa-plus" Href="/usuario/cadastrar">Cadastrar</MudNavLink>
+    </MudNavGroup>
+    
+    <MudNavLink Icon="fas fa-sign-out-alt" OnClick="Sair">Sair</MudNavLink>
+</MudNavMenu>
+
+@code{
+    private async void Sair()
+    {
+        string token = await ls.GetToken();
+        await ls.Clear();
+        await new AuthServices(token).Logout();
+        navigator.NavigateTo("/login");
+    }
+}

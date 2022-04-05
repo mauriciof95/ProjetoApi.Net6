@@ -1,0 +1,36 @@
+﻿@page "/perfil"
+@inject ILocalStorageService ls;
+@inject NavigationManager NavManager
+
+<MudTable Items="@lista" Dense="true" Hover="true" Breakpoint="Breakpoint.None" T="Perfil">
+    <HeaderContent>
+        <MudTh>Descrição</MudTh>
+        <MudTh>Ações</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Descrição">@context.descricao</MudTd>
+        <MudTd DataLabel="Ações">
+            <MudButtonGroup Color="Color.Primary">
+                <MudIconButton Color="Color.Success" Icon="fas fa-edit"></MudIconButton>
+                <MudIconButton Color="Color.Error" Icon="fas fa-trash"></MudIconButton>
+                <MudIconButton Color="Color.Info" Icon="fas fa-cogs"></MudIconButton>
+            </MudButtonGroup>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    private ICollection<Perfil> lista;
+    protected PerfilServices services;
+    protected string token;
+
+    protected override async Task OnInitializedAsync()
+    {
+        token = await ls.GetToken();
+
+        if (string.IsNullOrEmpty(token)) NavManager.NavigateTo("/login");
+
+        services = new PerfilServices(token);
+        lista = await services.GetAll();
+    }
+}

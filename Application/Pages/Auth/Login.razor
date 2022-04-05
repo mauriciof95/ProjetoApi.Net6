@@ -1,0 +1,46 @@
+﻿@page "/login"
+@inject ILocalStorageService ls;
+@inject IJSRuntime js
+@inject NavigationManager navigator
+@layout PublicLayout
+
+<div class="row vh-100">
+    <div class="col-md-6 d-none d-sm-block bg-dark">
+
+    </div>
+    <div class="col-md-6 d-flex flex-wrap justify-content-center align-content-center">
+        <EditForm Model="@user" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <MudTextField Label="Nome de Usuario"
+                                    @bind-Value="user.username" For="@(() => user.username)" />
+
+            <MudTextField Label="Senha" Class="mt-3"
+                                    @bind-Value="user.password" For="@(() => user.password)" InputType="InputType.Password" />
+            
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Entrar</MudButton>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    UserAuthRequest user = new UserAuthRequest();
+    AuthServices service;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var valid = await Auth.CheckToken(ls);
+        if (valid) navigator.NavigateTo("/");
+
+        service = new AuthServices("");
+        base.OnInitialized();
+    }
+
+
+    private async void OnValidSubmit(EditContext context)
+    {
+        var obj = await service.Login(user);
+        await ls.SetToken(obj.token);
+        navigator.NavigateTo("/");
+        StateHasChanged();
+    }
+}
