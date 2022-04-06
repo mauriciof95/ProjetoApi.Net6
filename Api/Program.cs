@@ -1,13 +1,10 @@
 using Api.Configuration;
-using Api.Repository;
+using Api.Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System.Text;
 
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -60,6 +57,13 @@ builder.Services.AddControllers();
 });*/
 
 var conn = configuration.GetConnectionString("ConnectionString");
+
+//pega a string de conexao do secrets.json
+//arquivo fora do projeto para gerenciar dados sensiveis
+//>dotnet user-secrets set ConnectionString "string da conexao" --project Api
+var connSecret = builder.Configuration["ConnectionString"];
+
+if (connSecret != null) conn = connSecret;
 
 builder.Services.AddDbContext<ApiContext>(o => { 
     o.UseNpgsql(conn);

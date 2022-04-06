@@ -1,15 +1,14 @@
-using NUnit.Framework;
-using Api.Services;
-using Api.Repository;
-using Models;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Models.Enum;
-using System.Collections.Generic;
-using Models.Request;
-using System.Linq;
 using Api.Helpers.Exceptions;
-using System;
+using Api.Services;
+using Api.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using Models;
+using Models.Enum;
+using Models.Request;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ApiTest
 {

@@ -1,5 +1,5 @@
-﻿using Api.Repository;
-using Api.Repository.Repository;
+﻿using Api.Data.Context;
+using Infrastructure.Data.Repository;
 using Models;
 
 namespace Api.Services

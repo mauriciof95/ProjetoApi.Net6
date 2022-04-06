@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
-    [Table("pedido_item", Schema = "public")]
     public class PedidoItem : BaseModel
     {
         [Column(Order = 1)]
@@ -29,12 +28,7 @@ namespace Models
         public long produto_id { get; set; }
 
 
-
-
-        [ForeignKey("pedido_id")]
         public Pedido pedido { get; set; }
-
-        [ForeignKey("produto_id")]
         public Produto produto { get; set; }
     }
 }

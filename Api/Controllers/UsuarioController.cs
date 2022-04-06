@@ -1,6 +1,6 @@
 ﻿using Api.Configuration;
 using Api.Helpers;
-using Api.Repository;
+using Api.Data.Context;
 using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

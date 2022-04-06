@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
-    [Table("cliente", Schema = "public")]
     [Index(nameof(documento), IsUnique = true)]
     public class Cliente : BaseModel
     {
@@ -20,5 +20,7 @@ namespace Models
         [MaxLength(15, ErrorMessage = "O Documento deve ter no max 15 caracteres.")]
         [Column(Order = 2)]
         public string documento { get; set; }
+
+        public ICollection<Pedido> pedidos { get; set; }
     }
 }

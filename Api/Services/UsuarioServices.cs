@@ -1,6 +1,6 @@
 ﻿using Api.Configuration;
-using Api.Repository;
-using Api.Repository.Repository;
+using Infrastructure.Data.Repository;
+using Api.Data.Context;
 using Microsoft.IdentityModel.Tokens;
 using Models;
 using Models.Enum;
@@ -50,7 +50,7 @@ namespace Api.Services
 
             user.refresh_token = refresh_token;
             user.refresh_token_expiry_time = DateTime.Now.AddDays(_configToken.DaysToExpire);
-            await _repository.Update(user, user.id);
+            await Update(user, user.id);
 
             DateTime createDate = DateTime.Now;
             DateTime expirationDate = createDate.AddMinutes(_configToken.Minutes);
@@ -118,7 +118,7 @@ namespace Api.Services
 
             user.refresh_token = refresh_token;
             user.refresh_token_expiry_time = DateTime.Now.AddDays(_configToken.DaysToExpire);
-            await _repository.Update(user, user.id);
+            await Update(user, user.id);
 
             DateTime createDate = DateTime.Now;
             DateTime expirationDate = createDate.AddMinutes(_configToken.Minutes);

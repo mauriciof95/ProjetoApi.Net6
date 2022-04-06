@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiTest", "ApiTest\ApiTest.csproj", "{51E5C68D-4156-45CA-AEE5-D90995B1E323}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices", "WebServices\WebServices.csproj", "{4F9EB2EA-FFE7-4508-B8DC-77BB74C1048E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServices", "WebServices\WebServices.csproj", "{4F9EB2EA-FFE7-4508-B8DC-77BB74C1048E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
