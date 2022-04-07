@@ -55,7 +55,7 @@ namespace Api.Services
             }
              
 
-            var retorno = await _repository.Include(pedido);
+            var retorno = await Create(pedido);
             await _movimentacaoEstoqueServices.Create(itensME);
 
             return retorno;

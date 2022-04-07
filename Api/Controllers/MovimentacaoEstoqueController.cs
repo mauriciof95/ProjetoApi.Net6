@@ -9,11 +9,11 @@ namespace Api.Controllers
     [Authorize("Bearer")]
     [Route("[controller]")]
     [ApiController]
-    public class VendedorController : ControllerBase
+    public class MovimentacaoEstoqueController : ControllerBase
     {
-        private VendedorServices _services;
+        private MovimentacaoEstoqueServices _services;
 
-        public VendedorController(ApiContext context) => _services = new VendedorServices(context);
+        public MovimentacaoEstoqueController(ApiContext context) => _services = new MovimentacaoEstoqueServices(context);
 
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("cadastrar")]
-        public async Task<IActionResult> Include([FromBody] Vendedor obj)
+        public async Task<IActionResult> Include([FromBody] MovimentacaoEstoque obj)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace Api.Controllers
 
 
         [HttpPut("editar/{id}")]
-        public async Task<IActionResult> Update([FromBody] Vendedor obj, long id)
+        public async Task<IActionResult> Update([FromBody] MovimentacaoEstoque obj, long id)
         {
             try
             {

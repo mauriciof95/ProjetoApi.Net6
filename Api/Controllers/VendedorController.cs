@@ -1,21 +1,23 @@
-﻿using Api.Data.Context;
+﻿using Api.Helpers;
+using Api.Data.Context;
 using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.Enum;
 
 namespace Api.Controllers
 {
     [Authorize("Bearer")]
     [Route("[controller]")]
     [ApiController]
-    public class VendedorController : ControllerBase
+    public class ClienteController : ControllerBase
     {
-        private VendedorServices _services;
+        private ClienteServices _services;
 
-        public VendedorController(ApiContext context) => _services = new VendedorServices(context);
+        public ClienteController(ApiContext context) => _services = new ClienteServices(context);
 
-
+        [CustomAuthorize(PermissaoEnum.CLIENTE_LISTAR)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -30,7 +32,7 @@ namespace Api.Controllers
             }
         }
 
-
+        [CustomAuthorize(PermissaoEnum.CLIENTE_LISTAR)]
         [HttpGet("{id}")]
         public async Task<IActionResult> FindById(long id)
         {
@@ -45,8 +47,9 @@ namespace Api.Controllers
             }
         }
 
+        [CustomAuthorize(PermissaoEnum.CLIENTE_CADASTRAR)]
         [HttpPost("cadastrar")]
-        public async Task<IActionResult> Include([FromBody] Vendedor obj)
+        public async Task<IActionResult> Include([FromBody] Cliente obj)
         {
             try
             {
@@ -59,9 +62,9 @@ namespace Api.Controllers
             }
         }
 
-
+        [CustomAuthorize(PermissaoEnum.CLIENTE_EDITAR)]
         [HttpPut("editar/{id}")]
-        public async Task<IActionResult> Update([FromBody] Vendedor obj, long id)
+        public async Task<IActionResult> Update([FromBody] Cliente obj, long id)
         {
             try
             {
@@ -74,6 +77,7 @@ namespace Api.Controllers
             }
         }
 
+        [CustomAuthorize(PermissaoEnum.CLIENTE_DELETAR)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
