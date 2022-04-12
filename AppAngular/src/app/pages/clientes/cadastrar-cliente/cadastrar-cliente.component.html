@@ -1,0 +1,29 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Cadastrar Cliente</li>
+  </ol>
+</nav>
+
+<div class="container main-container">
+  <h4>Cadastro</h4>
+  <form novalidate [formGroup]="cadastroForm" (ngSubmit)="adicionarCliente()">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="email" class="form-control" formControlName="nome">
+        <span class="text-danger" *ngIf="cadastroForm.get('nome')?.errors">Preencha o campo.</span>
+      </div>
+
+      <div class="form-group">
+        <label>Documento (CPF)</label>
+        <input type="email" class="form-control" formControlName="documento" [textMask]="{mask: MASKS.cpf.textMask}">
+        <span class="text-danger" *ngIf="cadastroForm.get('documento')?.errors?.required">Preencha o campo.</span>
+      </div>
+
+      <button type="submit" class="btn btn-success">Cadastrar</button>
+      <a class="btn btn-info" [routerLink]="['/clientes']">Listar</a>
+      <a class="btn btn-danger" [routerLink]="['/home']">Cancelar</a>
+    </div>
+  </form>
+</div>
