@@ -12,13 +12,17 @@
       <div class="form-group">
         <label>Nome</label>
         <input type="email" class="form-control" formControlName="nome">
-        <span class="text-danger" *ngIf="cadastroForm.get('nome')?.errors">Preencha o campo.</span>
+        <span class="text-danger" *ngIf="displayMessage.nome">
+          <p [innerHTML]="displayMessage.nome"></p>
+        </span>
       </div>
 
       <div class="form-group">
         <label>Documento (CPF)</label>
-        <input type="email" class="form-control" formControlName="documento" [textMask]="{mask: MASKS.cpf.textMask}">
-        <span class="text-danger" *ngIf="cadastroForm.get('documento')?.errors?.required">Preencha o campo.</span>
+        <input type="email" class="form-control" formControlName="documento">
+        <span class="text-danger" *ngIf="displayMessage.documento">
+          <p [innerHTML]="displayMessage.documento"></p>
+        </span>
       </div>
 
       <button type="submit" class="btn btn-success">Cadastrar</button>
