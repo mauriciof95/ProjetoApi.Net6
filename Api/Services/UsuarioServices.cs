@@ -34,7 +34,7 @@ namespace Api.Services
 
         public async Task<TokenVM> ValidateUser(UserAuthRequest auth)
         {
-            var user = await _repository.RetornarUsuarioPorNomeSenha(auth.username, auth.password);
+            var user = await _repository.RetornarUsuarioPorNomeSenha(auth.nome, auth.senha);
             if (user == null) throw new Exception("Nome de usuario ou senha inválido.");
 
             var perfil = await _perfilServices.FindByID(user.perfil_id);
@@ -169,6 +169,22 @@ namespace Api.Services
             await Update(user, user.id);
 
             return true;
+        }
+
+
+        public async Task Create(UsuarioRequest obj)
+        {
+            if (obj == null) return;
+
+            var objUsuario = new Usuario();
+
+            objUsuario.nome      = obj.Nome;
+            objUsuario.senha     = obj.Senha;
+            objUsuario.email     = obj.Email;
+            objUsuario.perfil_id = obj.Perfil_id;
+            objUsuario.ativo     = obj.Ativo;
+
+            await Create(objUsuario);
         }
     }
 }

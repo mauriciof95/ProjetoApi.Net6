@@ -12,8 +12,8 @@ using Models.ViewModel;
 namespace Api.Controllers
 {
     [Route("[controller]")]
-    [Authorize("Bearer")]
-    [ApiController]
+    //[Authorize("Bearer")]
+    [ApiControllerCustom]
     public class UsuarioController : ControllerBase
     {
         private UsuarioServices _services;
@@ -102,14 +102,14 @@ namespace Api.Controllers
             }
         }
 
-        [CustomAuthorize(PermissaoEnum.USUARIO_CADASTRAR)]
+        //[CustomAuthorize(PermissaoEnum.USUARIO_CADASTRAR)]
         [HttpPost("cadastrar")]
-        public async Task<IActionResult> Include([FromBody] Usuario obj)
+        public async Task<IActionResult> Create([FromBody] UsuarioRequest obj)
         {
             try
             {
-                obj = await _services.Create(obj);
-                return Ok(obj);
+                await _services.Create(obj);
+                return Ok();
             }
             catch (Exception ex)
             {
