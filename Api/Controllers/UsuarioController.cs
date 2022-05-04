@@ -12,8 +12,8 @@ using Models.ViewModel;
 namespace Api.Controllers
 {
     [Route("[controller]")]
-    //[Authorize("Bearer")]
-    [ApiControllerCustom]
+    [Authorize("Bearer")]
+    [CustomApiController]
     public class UsuarioController : ControllerBase
     {
         private UsuarioServices _services;
@@ -23,128 +23,73 @@ namespace Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserAuthRequest auth)
         {
-            try
-            {
-                if (auth == null) return BadRequest("Invalid request");
-                var token = await _services.ValidateUser(auth);
-                if(token == null) return Unauthorized();
-                return Ok(token);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            if (auth == null) return BadRequest("Invalid request");
+            var token = await _services.ValidateUser(auth);
+            if (token == null) return Unauthorized();
+            return Ok(token);
         }
 
         [AllowAnonymous]
         [HttpPost("refresh")]
         public async Task<IActionResult> Refresh([FromBody] TokenVM tokenviewmodel)
         {
-            try
-            {
-                if (tokenviewmodel == null) return BadRequest("Invalid request");
-                var token = await _services.ValidateCredentials(tokenviewmodel);
-                if (token == null) return BadRequest("Invalid request");
-                return Ok(token);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            if (tokenviewmodel == null) return BadRequest("Invalid request");
+            var token = await _services.ValidateCredentials(tokenviewmodel);
+            if (token == null) return BadRequest("Invalid request");
+            return Ok(token);
         }
 
         [HttpGet("revoke")]
         public async Task<IActionResult> Revoke()
         {
-            try
-            {
-                var username = User.Identity.Name;
+            var username = User.Identity.Name;
 
-                var result = await _services.RevokeToken(username);
+            var result = await _services.RevokeToken(username);
 
-                if(!result) return BadRequest("Invalid request");
+            if (!result) return BadRequest("Invalid request");
 
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            return NoContent();
         }
 
-        //[CustomAuthorize(PermissaoEnum.USUARIO_LISTAR)]
+        [CustomAuthorize(PermissaoEnum.USUARIO_LISTAR)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            try
-            {
-                var objs = await _services.GetAll();
-                return Ok(objs);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            var objs = await _services.GetAll();
+            return Ok(objs);
         }
 
         [CustomAuthorize(PermissaoEnum.USUARIO_LISTAR)]
         [HttpGet("{id}")]
         public async Task<IActionResult> FindById(long id)
         {
-            try
-            {
-                var obj = await _services.FindByID(id);
-                return Ok(obj);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            var obj = await _services.FindByID(id);
+            if(obj is null) return NotFound();
+            return Ok(obj);
         }
 
-        //[CustomAuthorize(PermissaoEnum.USUARIO_CADASTRAR)]
+        [CustomAuthorize(PermissaoEnum.USUARIO_CADASTRAR)]
         [HttpPost("cadastrar")]
         public async Task<IActionResult> Create([FromBody] UsuarioRequest obj)
         {
-            try
-            {
-                await _services.Create(obj);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            await _services.Create(obj);
+            return Ok();
         }
 
         [CustomAuthorize(PermissaoEnum.USUARIO_EDITAR)]
         [HttpPut("editar/{id}")]
         public async Task<IActionResult> Update([FromBody] Usuario obj, long id)
         {
-            try
-            {
-                obj = await _services.Update(obj, id);
-                return Ok(obj);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            obj = await _services.Update(obj, id);
+            return Ok(obj);
         }
 
         [CustomAuthorize(PermissaoEnum.USUARIO_DELETAR)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            try
-            {
-                await _services.Delete(id);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            await _services.Delete(id);
+            return NoContent();
         }
 
     }

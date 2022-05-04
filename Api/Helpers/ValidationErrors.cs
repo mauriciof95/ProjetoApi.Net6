@@ -43,7 +43,7 @@ namespace Api.Helpers
         }
     }
 
-    public class ApiControllerCustomAttribute : ActionFilterAttribute
+    public class CustomApiControllerAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {

@@ -1,5 +1,6 @@
 using Api.Configuration;
 using Api.Data.Context;
+using Api.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -97,5 +98,7 @@ app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.Run("http://localhost:8900");
