@@ -1,5 +1,4 @@
 ﻿using Api.Helpers;
-using Api.Data.Context;
 using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +12,9 @@ namespace Api.Controllers
     [ApiController]
     public class ProdutoController : ControllerBase
     {
-        private ProdutoServices _services;
+        private readonly ProdutoServices _services;
 
-        public ProdutoController(ApiContext context) => _services = new ProdutoServices(context);
+        public ProdutoController(ProdutoServices services) => _services = services;
 
         [CustomAuthorize(PermissaoEnum.PRODUTO_LISTAR)]
         [HttpGet]

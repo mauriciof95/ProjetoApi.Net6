@@ -1,5 +1,4 @@
 ﻿using Api.Helpers;
-using Api.Data.Context;
 using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,17 +7,17 @@ using Models.Enum;
 
 namespace Api.Controllers
 {
-    [Authorize("Bearer")]
+    //[Authorize("Bearer")]
     [Route("[controller]")]
     [ApiController]
 
     public class CategoriaController : ControllerBase
     {
-        private CategoriaServices _services;
+        private readonly CategoriaServices _services;
 
-        public CategoriaController(ApiContext context) => _services = new CategoriaServices(context);
+        public CategoriaController(CategoriaServices services) => _services = services;
 
-        [CustomAuthorize(PermissaoEnum.CATEGORIA_LISTAR)]
+        //[CustomAuthorize(PermissaoEnum.CATEGORIA_LISTAR)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

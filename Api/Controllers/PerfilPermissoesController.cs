@@ -1,10 +1,5 @@
-﻿using Api.Helpers;
-using Api.Data.Context;
-using Api.Services;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using Models.Enum;
 
 namespace Api.Controllers
 {

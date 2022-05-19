@@ -1,11 +1,14 @@
 using Api.Configuration;
 using Api.Data.Context;
 using Api.Middlewares;
+using Api.Services;
+using Infrastructure.Data.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.Text;
 
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -36,6 +39,11 @@ builder.Services.AddAuthentication(o => {
     };
 });
 
+//StartupConfig
+builder.Services.AddRepositorys();
+builder.Services.AddServices();
+
+
 builder.Services.AddAuthorization(a => { 
     a.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
@@ -53,9 +61,9 @@ builder.Services.AddCors(b =>
 
 builder.Services.AddControllers();
 
-/*builder.Services.Configure<JsonSerializerSettings>(o => {
+builder.Services.Configure<JsonSerializerSettings>(o => {
     o.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-});*/
+});
 
 var conn = configuration.GetConnectionString("ConnectionString");
 

@@ -1,5 +1,4 @@
-﻿using Api.Data.Context;
-using Api.Services;
+﻿using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -11,9 +10,9 @@ namespace Api.Controllers
     [ApiController]
     public class VendedorController : ControllerBase
     {
-        private VendedorServices _services;
+        private readonly VendedorServices _services;
 
-        public VendedorController(ApiContext context) => _services = new VendedorServices(context);
+        public VendedorController(VendedorServices services) => _services = services;
 
 
         [HttpGet]

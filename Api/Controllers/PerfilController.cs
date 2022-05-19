@@ -1,5 +1,4 @@
 ﻿using Api.Helpers;
-using Api.Data.Context;
 using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +12,9 @@ namespace Api.Controllers
     [ApiController]
     public class PerfilController : ControllerBase
     {
-        private PerfilServices _services;
+        private readonly PerfilServices _services;
 
-        public PerfilController(ApiContext context) => _services = new PerfilServices(context);
+        public PerfilController(PerfilServices services) => _services = services;
 
         [CustomAuthorize(PermissaoEnum.PERFIL_LISTAR)]
         [HttpGet]

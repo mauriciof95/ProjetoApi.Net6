@@ -1,5 +1,4 @@
-﻿using Api.Data.Context;
-using Api.Services;
+﻿using Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Models.Enum;
@@ -10,12 +9,12 @@ namespace Api.Helpers
     public class CustomAuthorizeFilter : IAuthorizationFilter
     {
         readonly Claim _claim;
-        private ApiContext _apiContext;
+        private PerfilServices _perfilServices;
 
-        public CustomAuthorizeFilter(Claim claim, ApiContext apiContext)
+        public CustomAuthorizeFilter(Claim claim, PerfilServices services)
         {
             _claim = claim;
-            _apiContext = apiContext;
+            _perfilServices = services;
         }
 
         public void OnAuthorization(AuthorizationFilterContext context)
@@ -28,7 +27,7 @@ namespace Api.Helpers
                 return;
             }
 
-            var hasPermission = new PerfilServices(_apiContext).RoleHasPermission(claimPerfil.Value, _claim.Value);
+            var hasPermission = _perfilServices.RoleHasPermission(claimPerfil.Value, _claim.Value);
 
             if (!hasPermission)
             {

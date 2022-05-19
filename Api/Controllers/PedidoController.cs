@@ -1,9 +1,6 @@
-﻿using Api.Data.Context;
-using Api.Services;
+﻿using Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Models.Request;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Api.Controllers
 {
@@ -11,9 +8,9 @@ namespace Api.Controllers
     [ApiController]
     public class PedidoController : ControllerBase
     {
-        private PedidoServices _services;
+        private readonly PedidoServices _services;
 
-        public PedidoController(ApiContext context) => _services = new PedidoServices(context);
+        public PedidoController(PedidoServices services) => _services = services;
 
         [HttpGet]
         public async Task<IActionResult> GetAll()

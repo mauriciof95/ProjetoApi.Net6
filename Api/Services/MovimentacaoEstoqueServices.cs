@@ -1,20 +1,15 @@
 ﻿using Infrastructure.Data.Repository;
-using Api.Data.Context;
 using Models;
 using Models.Enum;
-using Models.Request;
 
 namespace Api.Services
 {
-    public class MovimentacaoEstoqueServices : BaseServices<MovimentacaoEstoque, MovimentacaoEstoqueRepository>
+    public class MovimentacaoEstoqueServices : BaseServices<MovimentacaoEstoque>
     {
-        public MovimentacaoEstoqueServices(ApiContext context) : base(context) { }
+        private readonly MovimentacaoEstoqueRepository _repository;
 
-        /*public async Task<MovimentacaoEstoque> RealizarVenda(DadosVendaRequest venda)
-        {
-
-        }*/
-
+        public MovimentacaoEstoqueServices(MovimentacaoEstoqueRepository repository) : base(repository) => _repository = repository;
+        
         public async Task<bool> TemEstoque(long produto_id, int qtd)
         {
             var qtd_entradas = await _repository.RetornarQtdPorTipo(produto_id, EstoqueTipo.ENTRADA);

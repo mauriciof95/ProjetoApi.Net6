@@ -1,28 +1,24 @@
-﻿using Api.Data.Context;
-using Infrastructure.Data.Repository;
-
+﻿using Api.Interfaces;
 using Models;
 
 namespace Api.Services
 {
-    public class BaseServices<TModel, TRepository>
-        where TModel : BaseModel
-        where TRepository : BaseRepository<TModel>
+    public class BaseServices<TModel> : IBaseService<TModel> where TModel : BaseModel
     {
-        protected TRepository _repository;
-        public BaseServices(ApiContext context)
-            => _repository = Activator.CreateInstance(typeof(TRepository), context) as TRepository;
+        private readonly IBaseRepository<TModel> _repository;
+        public BaseServices(IBaseRepository<TModel> repository)
+            => _repository = repository;
 
         public virtual async Task<ICollection<TModel>> GetAll() 
-            => await _repository.GetAll();
+            => await _repository.GetAllAsync();
         
-        public virtual async Task<TModel?> FindByID(long id) 
-            => await _repository.FindById(id);
+        public virtual async Task<TModel> FindByID(long id) 
+            => await _repository.FindByIdAsync(id);
         
         public virtual async Task<TModel> Create(TModel model)
         {
             model.data_criacao = DateTime.Now;
-            return await _repository.Include(model);
+            return await _repository.CreateAsync(model);
         }
 
         public virtual async Task Create(List<TModel> models) 
@@ -30,16 +26,16 @@ namespace Api.Services
             foreach (TModel model in models) await Create(model); 
         }
         
-        public virtual async Task<TModel?> Update(TModel? model, long id)
+        public virtual async Task<TModel> Update(TModel model, long id)
         {
-            TModel? old = await FindByID(id);
+            TModel old = await FindByID(id);
 
             if (model == null) return null;
 
             if(old != null)
             {
                 model.data_edicao = DateTime.Now;
-                model = await _repository.Update(model, old);
+                model = await _repository.UpdateAsync(model, old);
             }
 
             return model;
@@ -47,11 +43,11 @@ namespace Api.Services
         
         public virtual async Task Delete(long id) 
         {
-            TModel? model = await FindByID(id);
+            TModel model = await FindByID(id);
 
             if(model == null) return;
 
-            await _repository.Delete(model);
+            await _repository.DeleteAsync(model);
         }
     }
 }

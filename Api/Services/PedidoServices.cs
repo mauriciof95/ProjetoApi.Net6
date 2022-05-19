@@ -1,6 +1,5 @@
 ﻿using Api.Helpers.Exceptions;
 using Infrastructure.Data.Repository;
-using Api.Data.Context;
 using Models;
 using Models.Enum;
 using Models.Request;
@@ -8,16 +7,21 @@ using Models.ViewModel;
 
 namespace Api.Services
 {
-    public class PedidoServices : BaseServices<Pedido, PedidoRepository>
+    public class PedidoServices : BaseServices<Pedido>
     {
-        ProdutoServices _produtoServices;
-        MovimentacaoEstoqueServices _movimentacaoEstoqueServices;
+        private readonly PedidoRepository _repository;
+        private readonly ProdutoServices _produtoServices;
+        private readonly MovimentacaoEstoqueServices _movimentacaoEstoqueServices;
 
-
-        public PedidoServices(ApiContext context) : base(context) 
+        public PedidoServices(
+            PedidoRepository repository,
+            ProdutoServices produtoServices,
+            MovimentacaoEstoqueServices movimentacaoEstoqueServices
+        ) : base(repository) 
         {
-            _produtoServices = new ProdutoServices(context);
-            _movimentacaoEstoqueServices = new MovimentacaoEstoqueServices(context);
+            _repository = repository;
+            _produtoServices = produtoServices;
+            _movimentacaoEstoqueServices = movimentacaoEstoqueServices;
         }
 
         public async Task<Pedido> RealizarPedido(DadosPedidoRequest obj)

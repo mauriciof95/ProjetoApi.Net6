@@ -1,6 +1,5 @@
 ﻿using Api.Configuration;
 using Infrastructure.Data.Repository;
-using Api.Data.Context;
 using Microsoft.IdentityModel.Tokens;
 using Models;
 using Models.Enum;
@@ -13,23 +12,28 @@ using System.Text;
 
 namespace Api.Services
 {
-    public class UsuarioServices : BaseServices<Usuario, UsuarioRepository>
+    public class UsuarioServices : BaseServices<Usuario>
     {
-        public PerfilServices _perfilServices;
+        private readonly UsuarioRepository _repository;
+        private readonly PerfilServices _perfilServices;
         private TokenConfiguration _configToken;
 
         private const string DATE_FORMAT = "dd-MM-yyyy hh-mm-ss";
 
-        public UsuarioServices(ApiContext context, TokenConfiguration configToken) : base(context) 
+        public UsuarioServices(
+            UsuarioRepository repository, 
+            TokenConfiguration configToken,
+            PerfilServices perfilServices
+        ) : base(repository) 
         { 
-            _perfilServices = new PerfilServices(context);
+            _perfilServices = perfilServices;
             _configToken = configToken;
         }
 
-        public UsuarioServices(ApiContext context) : base(context)
+        public UsuarioServices(UsuarioRepository repository, PerfilServices perfilServices) : base(repository)
         {
-            _repository = new UsuarioRepository(context);
-            _perfilServices = new PerfilServices(context);
+            _repository = repository;
+            _perfilServices = perfilServices;
         }
 
         public async Task<TokenVM> ValidateUser(UserAuthRequest auth)

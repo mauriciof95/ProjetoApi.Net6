@@ -1,11 +1,10 @@
 ﻿using Infrastructure.Data.Repository;
-using Api.Data.Context;
 using Models;
 
 namespace Api.Services
 {
-    public class VendedorServices : BaseServices<Vendedor, VendedorRepository>
+    public class VendedorServices : BaseServices<Vendedor>
     {
-        public VendedorServices(ApiContext context) : base(context) { }
+        public VendedorServices(VendedorRepository repository) : base(repository) { }
     }
 }

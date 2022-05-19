@@ -1,5 +1,4 @@
 ﻿using Api.Helpers;
-using Api.Data.Context;
 using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +12,9 @@ namespace Api.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
-        private ClienteServices _services;
+        private readonly ClienteServices _services;
 
-        public ClienteController(ApiContext context) => _services = new ClienteServices(context);
+        public ClienteController(ClienteServices service) => _services = service;
 
         [CustomAuthorize(PermissaoEnum.CLIENTE_LISTAR)]
         [HttpGet]

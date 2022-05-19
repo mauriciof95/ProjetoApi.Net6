@@ -1,12 +1,14 @@
-﻿using Api.Data.Context;
-using Infrastructure.Data.Repository;
+﻿using Infrastructure.Data.Repository;
 using Models;
 
 namespace Api.Services
 {
-    public class PerfilServices : BaseServices<Perfil, PerfilRepository>
+    public class PerfilServices : BaseServices<Perfil>
     {
-        public PerfilServices(ApiContext context) : base(context){ }
+        private readonly PerfilRepository _repository;
+
+        public PerfilServices(PerfilRepository repository) : base(repository) => _repository = repository;
+        
 
         public async Task<ICollection<PerfilPermissao>> RetornarPermissoesPorPerfil(long perfil_id)
             => await _repository.RetornarPermissoesPorPerfil(perfil_id);

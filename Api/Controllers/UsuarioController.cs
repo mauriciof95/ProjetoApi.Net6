@@ -1,6 +1,5 @@
 ﻿using Api.Configuration;
 using Api.Helpers;
-using Api.Data.Context;
 using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +15,8 @@ namespace Api.Controllers
     [CustomApiController]
     public class UsuarioController : ControllerBase
     {
-        private UsuarioServices _services;
-        public UsuarioController(ApiContext context, TokenConfiguration tokenConfig) => _services = new UsuarioServices(context, tokenConfig);
+        private readonly UsuarioServices _services;
+        public UsuarioController(UsuarioServices services, TokenConfiguration tokenConfig) => _services = services;
 
         [AllowAnonymous]
         [HttpPost("login")]

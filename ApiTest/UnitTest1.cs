@@ -9,6 +9,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infrastructure.Data.Repository;
 
 namespace ApiTest
 {
@@ -26,19 +27,19 @@ namespace ApiTest
         string ProdutoDescricao = "Farol Dianteiro";
 
         [SetUp]
-        public void Setup()
+        public void Setup(CategoriaServices categoriaServices)
         {
             var options = new DbContextOptionsBuilder<ApiContext>()
                 .UseInMemoryDatabase("ProjetoApiBase")
                 .Options;
             var contexto = new ApiContext(options);
 
-            _categoriaService = new CategoriaServices(contexto);
-            _produtoService = new ProdutoServices(contexto);
-            _clienteService = new ClienteServices(contexto);
-            _vendedorService = new VendedorServices(contexto);
-            _movimentacaoEstoqueService = new MovimentacaoEstoqueServices(contexto);
-            _pedidoServices = new PedidoServices(contexto);
+            _categoriaService = new CategoriaServices(new CategoriaRepository(contexto));
+            _produtoService = new ProdutoServices(new ProdutoRepository(contexto));
+            _clienteService = new ClienteServices(new ClienteRepository(contexto));
+            _vendedorService = new VendedorServices(new VendedorRepository(contexto));
+            _movimentacaoEstoqueService = new MovimentacaoEstoqueServices(new MovimentacaoEstoqueRepository(contexto));
+            _pedidoServices = new PedidoServices(new PedidoRepository(contexto), _produtoService, _movimentacaoEstoqueService);
         }
 
         [Test]
@@ -125,6 +126,8 @@ namespace ApiTest
         [Test]
         public async Task TestarValidacaoRealizarPedidoDadosIncompletos()
         {
+            await Task.Yield();
+
             var obj = new DadosPedidoRequest
             {
             };
@@ -141,6 +144,8 @@ namespace ApiTest
         [Test]
         public async Task TestarValidacaoRealizarPedidoSemEstoque()
         {
+            await Task.Yield();
+
             var obj = new DadosPedidoRequest
             {
                 cliente_id = 1,

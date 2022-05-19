@@ -1,11 +1,10 @@
 ﻿using Infrastructure.Data.Repository;
-using Api.Data.Context;
 using Models;
 
 namespace Api.Services
 {
-    public class ProdutoServices : BaseServices<Produto, ProdutoRepository>
+    public class ProdutoServices : BaseServices<Produto>
     {
-        public ProdutoServices(ApiContext context) : base(context) { }
+        public ProdutoServices(ProdutoRepository repository) : base(repository) { }
     }
 }

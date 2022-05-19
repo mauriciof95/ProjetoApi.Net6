@@ -1,8 +1,4 @@
-﻿using Models.Enum;
-using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Models
+﻿namespace Models
 {
     public class PerfilPermissao : BaseModel
     {

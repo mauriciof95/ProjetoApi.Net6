@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
@@ -32,7 +31,7 @@ namespace Models
         public bool ativo { get; set; }
 
         [JsonProperty(PropertyName = "refresh_token")]
-        public string? refresh_token { get; set; }
+        public string refresh_token { get; set; }
 
         [JsonProperty(PropertyName = "refresh_token_expiry_time")]
         public DateTime? refresh_token_expiry_time { get; set; }

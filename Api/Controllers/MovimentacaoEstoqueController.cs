@@ -1,5 +1,4 @@
-﻿using Api.Data.Context;
-using Api.Services;
+﻿using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -11,9 +10,9 @@ namespace Api.Controllers
     [ApiController]
     public class MovimentacaoEstoqueController : ControllerBase
     {
-        private MovimentacaoEstoqueServices _services;
+        private readonly MovimentacaoEstoqueServices _services;
 
-        public MovimentacaoEstoqueController(ApiContext context) => _services = new MovimentacaoEstoqueServices(context);
+        public MovimentacaoEstoqueController(MovimentacaoEstoqueServices services) => _services = services;
 
 
         [HttpGet]
