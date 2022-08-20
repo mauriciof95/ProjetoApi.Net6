@@ -1,6 +1,6 @@
 ﻿namespace Models.Enum
 {
-    public static class PermissaoEnum
+    public static class PermissionEnum
     {
         public const string CATEGORIA_LISTAR = "categoria_listar";
         public const string CATEGORIA_CADASTRAR = "categoria_cadastrar";

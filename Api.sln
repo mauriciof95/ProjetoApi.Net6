@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiTest", "ApiTest\ApiTest.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServices", "WebServices\WebServices.csproj", "{4F9EB2EA-FFE7-4508-B8DC-77BB74C1048E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Infra", "Api.Infra\Api.Infra.csproj", "{E9E2BF0F-D25A-4DCB-B2C0-226DC10098DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.App", "Api.App\Api.App.csproj", "{C055A112-2468-45AA-975C-527D45FEFE55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{4F9EB2EA-FFE7-4508-B8DC-77BB74C1048E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F9EB2EA-FFE7-4508-B8DC-77BB74C1048E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F9EB2EA-FFE7-4508-B8DC-77BB74C1048E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9E2BF0F-D25A-4DCB-B2C0-226DC10098DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9E2BF0F-D25A-4DCB-B2C0-226DC10098DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9E2BF0F-D25A-4DCB-B2C0-226DC10098DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9E2BF0F-D25A-4DCB-B2C0-226DC10098DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C055A112-2468-45AA-975C-527D45FEFE55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C055A112-2468-45AA-975C-527D45FEFE55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C055A112-2468-45AA-975C-527D45FEFE55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C055A112-2468-45AA-975C-527D45FEFE55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

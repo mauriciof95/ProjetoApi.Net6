@@ -1,5 +1,4 @@
 ﻿using Api.Helpers;
-using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -13,9 +12,7 @@ namespace Api.Controllers
 
     public class CategoriaController : ControllerBase
     {
-        private readonly CategoriaServices _services;
-
-        public CategoriaController(CategoriaServices services) => _services = services;
+        public CategoriaController() => _services = services;
 
         //[CustomAuthorize(PermissaoEnum.CATEGORIA_LISTAR)]
         [HttpGet]
@@ -25,7 +22,7 @@ namespace Api.Controllers
             return Ok(objs);
         }
 
-        [CustomAuthorize(PermissaoEnum.CATEGORIA_LISTAR)]
+        [CustomAuthorize(PermissionEnum.CATEGORIA_LISTAR)]
         [HttpGet("{id}")]
         public async Task<IActionResult> FindById(long id)
         {
@@ -34,23 +31,23 @@ namespace Api.Controllers
             return Ok(obj);
         }
 
-        [CustomAuthorize(PermissaoEnum.CATEGORIA_CADASTRAR)]
+        [CustomAuthorize(PermissionEnum.CATEGORIA_CADASTRAR)]
         [HttpPost("cadastrar")]
-        public async Task<IActionResult> Include([FromBody] Categoria obj)
+        public async Task<IActionResult> Include([FromBody] Category obj)
         {
             obj = await _services.Create(obj);
             return Ok(obj);
         }
 
-        [CustomAuthorize(PermissaoEnum.CATEGORIA_EDITAR)]
+        [CustomAuthorize(PermissionEnum.CATEGORIA_EDITAR)]
         [HttpPut("editar/{id}")]
-        public async Task<IActionResult> Update([FromBody] Categoria obj, long id)
+        public async Task<IActionResult> Update([FromBody] Category obj, long id)
         {
             obj = await _services.Update(obj, id);
             return Ok(obj);
         }
 
-        [CustomAuthorize(PermissaoEnum.CATEGORIA_DELETAR)]
+        [CustomAuthorize(PermissionEnum.CATEGORIA_DELETAR)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {

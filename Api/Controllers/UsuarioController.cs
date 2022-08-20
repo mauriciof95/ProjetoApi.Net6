@@ -50,7 +50,7 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        [CustomAuthorize(PermissaoEnum.USUARIO_LISTAR)]
+        [CustomAuthorize(PermissionEnum.USUARIO_LISTAR)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -58,7 +58,7 @@ namespace Api.Controllers
             return Ok(objs);
         }
 
-        [CustomAuthorize(PermissaoEnum.USUARIO_LISTAR)]
+        [CustomAuthorize(PermissionEnum.USUARIO_LISTAR)]
         [HttpGet("{id}")]
         public async Task<IActionResult> FindById(long id)
         {
@@ -67,7 +67,7 @@ namespace Api.Controllers
             return Ok(obj);
         }
 
-        [CustomAuthorize(PermissaoEnum.USUARIO_CADASTRAR)]
+        [CustomAuthorize(PermissionEnum.USUARIO_CADASTRAR)]
         [HttpPost("cadastrar")]
         public async Task<IActionResult> Create([FromBody] UsuarioRequest obj)
         {
@@ -75,15 +75,15 @@ namespace Api.Controllers
             return Ok();
         }
 
-        [CustomAuthorize(PermissaoEnum.USUARIO_EDITAR)]
+        [CustomAuthorize(PermissionEnum.USUARIO_EDITAR)]
         [HttpPut("editar/{id}")]
-        public async Task<IActionResult> Update([FromBody] Usuario obj, long id)
+        public async Task<IActionResult> Update([FromBody] User obj, long id)
         {
             obj = await _services.Update(obj, id);
             return Ok(obj);
         }
 
-        [CustomAuthorize(PermissaoEnum.USUARIO_DELETAR)]
+        [CustomAuthorize(PermissionEnum.USUARIO_DELETAR)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {

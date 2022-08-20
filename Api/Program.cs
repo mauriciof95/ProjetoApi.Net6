@@ -1,8 +1,6 @@
 using Api.Configuration;
-using Api.Data.Context;
+using Api.Infra;
 using Api.Middlewares;
-using Api.Services;
-using Infrastructure.Data.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -74,7 +72,7 @@ var connSecret = builder.Configuration["ConnectionString"];
 
 if (connSecret != null) conn = connSecret;
 
-builder.Services.AddDbContext<ApiContext>(o => { 
+builder.Services.AddDbContext<ApiDbContext>(o => { 
     o.UseNpgsql(conn);
 });
 
@@ -87,7 +85,7 @@ try
 {
     using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
     {
-        var context = serviceScope.ServiceProvider.GetRequiredService<ApiContext>();
+        var context = serviceScope.ServiceProvider.GetRequiredService<ApiDbContext>();
         context.Database.Migrate();
     }
 }

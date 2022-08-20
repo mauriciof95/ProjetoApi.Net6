@@ -45,9 +45,9 @@ namespace ApiTest
         [Test]
         public async Task IncluirCategoria()
         {
-            var cat = new Categoria
+            var cat = new Category
             {
-                descricao = CategoriaDescricao
+                description = CategoriaDescricao
             };
 
             var result = await _categoriaService.Create(cat);
@@ -60,11 +60,11 @@ namespace ApiTest
         {
             var cat = await _categoriaService.FirstSearchBy_Descricao(CategoriaDescricao);
 
-            var prod = new Produto
+            var prod = new Product
             {
-                categoria_id = cat.id,
-                descricao = ProdutoDescricao,
-                valor = 99.90m
+                category_id = cat.id,
+                description = ProdutoDescricao,
+                price = 99.90m
             };
 
             var result = await _produtoService.Create(prod);
@@ -75,10 +75,10 @@ namespace ApiTest
         [Test]
         public async Task IncluirCliente()
         {
-            var client = new Cliente
+            var client = new Client
             {
-                nome = "Cliente Teste 1",
-                documento = "1001"
+                name = "Cliente Teste 1",
+                document = "1001"
             };
 
             var result = await _clienteService.Create(client);
@@ -89,10 +89,10 @@ namespace ApiTest
         [Test]
         public async Task IncluirVendedor()
         {
-            var obj = new Vendedor
+            var obj = new Seller
             {
-                nome = "Vendedor Teste 1",
-                documento = "1001"
+                name = "Vendedor Teste 1",
+                document = "1001"
             };
 
             var result = await _vendedorService.Create(obj);
@@ -103,12 +103,12 @@ namespace ApiTest
         [Test]
         public async Task AdicionarEstoqueProduto()
         {
-            var obj = new MovimentacaoEstoque
+            var obj = new StockMoviment
             {
-                produto_id = 1,
-                quantidade = 10,
-                motivo_movimento = EstoqueMotivoMovimentacao.ESTOCAGEM,
-                tipo_movimento = EstoqueTipo.ENTRADA
+                product_id = 1,
+                amount = 10,
+                moviment_reason = StockMovimentReason.ESTOCAGEM,
+                moviment_type = StockType.INPUT
             };
 
             var result = await _movimentacaoEstoqueService.Create(obj);

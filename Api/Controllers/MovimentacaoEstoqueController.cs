@@ -32,7 +32,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("cadastrar")]
-        public async Task<IActionResult> Include([FromBody] MovimentacaoEstoque obj)
+        public async Task<IActionResult> Include([FromBody] StockMoviment obj)
         {
             obj = await _services.Create(obj);
             return Ok(obj);
@@ -40,7 +40,7 @@ namespace Api.Controllers
 
 
         [HttpPut("editar/{id}")]
-        public async Task<IActionResult> Update([FromBody] MovimentacaoEstoque obj, long id)
+        public async Task<IActionResult> Update([FromBody] StockMoviment obj, long id)
         {
             obj = await _services.Update(obj, id);
             return Ok(obj);
