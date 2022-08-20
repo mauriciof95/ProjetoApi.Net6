@@ -1,6 +1,6 @@
 # Api .NET6 com JWT
 
-Projeto de estudo sobre a implementação do jwt (Json Web Token) em uma api usando .net6 e database postgreSQL.
+Projeto de estudo sobre api usando .net6 e database postgreSQL.
 
 **Repositorio Front-End Angular:** https://github.com/mauriciof95/ProjetoFrondEndAgular
 
